@@ -38,21 +38,6 @@ class _WeatherState extends State<Weather> {
               );
             },
           ),
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () async {
-              final city = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CitySelection(),
-                ),
-              );
-              if (city != null) {
-                BlocProvider.of<WeatherBloc>(context)
-                    .add(FetchWeather(city: city));
-              }
-            },
-          )
         ],
       ),
       body: Center(
@@ -81,7 +66,7 @@ class _WeatherState extends State<Weather> {
                       child: RefreshIndicator(
                         onRefresh: () {
                           BlocProvider.of<WeatherBloc>(context).add(
-                            RefreshWeather(city: weather.location),
+                            RefreshWeather(location: weather.locationId),
                           );
                           return _refreshCompleter.future;
                         },
@@ -117,7 +102,14 @@ class _WeatherState extends State<Weather> {
                   style: TextStyle(color: Colors.red),
                 );
               }
-              return Center(child: Text('Please Select a Location'));
+              return Center(child: RaisedButton(
+                onPressed: () {
+                  BlocProvider.of<WeatherBloc>(context)
+                      .add(FetchWeather());
+                },
+                color: Colors.blue,
+                child: Text("Get Location", style: TextStyle(color: Colors.white),),
+              ));
             },
           ),
         ),
