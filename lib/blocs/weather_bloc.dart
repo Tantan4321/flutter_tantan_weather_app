@@ -12,21 +12,19 @@ abstract class WeatherEvent extends Equatable {
 }
 
 class FetchWeather extends WeatherEvent {
-  final String city;
-
-  const FetchWeather({@required this.city}) : assert(city != null);
+  const FetchWeather();
 
   @override
-  List<Object> get props => [city];
+  List<Object> get props => null;
 }
 
 class RefreshWeather extends WeatherEvent {
-  final String city;
+  final int location;
 
-  const RefreshWeather({@required this.city}) : assert(city != null);
+  const RefreshWeather({@required this.location}) : assert(location != null);
 
   @override
-  List<Object> get props => [city];
+  List<Object> get props => [location];
 }
 
 abstract class WeatherState extends Equatable {
@@ -65,7 +63,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     if (event is FetchWeather) {
       yield WeatherLoading();
       try {
-        final Weather weather = await weatherRepository.getWeather(event.city);
+        final Weather weather = await weatherRepository.initWeather();
         yield WeatherLoaded(weather: weather);
       } catch (_) {
         yield WeatherError();
@@ -74,7 +72,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
 
     if (event is RefreshWeather) {
       try {
-        final Weather weather = await weatherRepository.getWeather(event.city);
+        final Weather weather = await weatherRepository.getWeather(event.location);
         yield WeatherLoaded(weather: weather);
       } catch (_) {
         yield state;
