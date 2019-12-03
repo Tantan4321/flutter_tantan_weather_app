@@ -25,8 +25,16 @@ class _WeatherState extends State<Weather> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Weather'),
+        title: Text('Simple Weather'),
         actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.location_searching),
+            tooltip: 'Reset Location',
+            onPressed: ()  {
+              BlocProvider.of<WeatherBloc>(context)
+                .add(FetchWeather());
+            },
+          ),
           IconButton(
             icon: Icon(Icons.settings),
             onPressed: () {
@@ -89,6 +97,16 @@ class _WeatherState extends State<Weather> {
                                 ),
                               ),
                             ),
+                            Center(
+                              child: Text(
+                              'Swipe down to refresh.',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.white,
+                              ),
+                            )
+                            )
                           ],
                         ),
                       ),
@@ -97,9 +115,13 @@ class _WeatherState extends State<Weather> {
                 );
               }
               if (state is WeatherError) {
-                return Text(
-                  'Something went wrong!',
-                  style: TextStyle(color: Colors.red),
+                return RaisedButton(
+                  onPressed: () {
+                    BlocProvider.of<WeatherBloc>(context)
+                        .add(FetchWeather());
+                  },
+                  color: Colors.red,
+                  child: Text("Something when wrong! Try again.", style: TextStyle(color: Colors.white),),
                 );
               }
               return Center(child: RaisedButton(

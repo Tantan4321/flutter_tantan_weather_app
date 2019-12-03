@@ -12,8 +12,11 @@ class WeatherApiClient {
 
   WeatherApiClient({@required this.httpClient}) : assert(httpClient != null);
 
-  Future<int> getLocationId(String city) async {
-    final locationUrl = '$baseUrl/api/location/search/?query=$city';
+  Future<int> getLocationId(List<String>  userLocation) async {
+    final locationUrl = '$baseUrl/api/location/search/?lattlong='
+        + userLocation[0] + "," +
+        userLocation[1];
+    print(locationUrl);
     final locationResponse = await this.httpClient.get(locationUrl);
     if (locationResponse.statusCode != 200) {
       throw Exception('error getting locationId for city');
