@@ -25,7 +25,7 @@ class _WeatherState extends State<Weather> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Simple Weather'),
+        title: Text('Barebones Weather'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.location_searching),
@@ -130,7 +130,7 @@ class _WeatherState extends State<Weather> {
                       .add(FetchWeather());
                 },
                 color: Colors.blue,
-                child: Text("Get Location", style: TextStyle(color: Colors.white),),
+                child: Text("Get Location", style: TextStyle(fontSize: 20, color: Colors.white),),
               ));
             },
           ),
