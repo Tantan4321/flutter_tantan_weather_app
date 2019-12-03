@@ -25,8 +25,8 @@ class LocationApiClient {
       }
 
     final List<String> locationData = new List();
-    locationData.add(location.latitude.toStringAsPrecision(6));
-    locationData.add(location.longitude.toStringAsPrecision(6));
+    locationData.add(location.latitude.toStringAsPrecision(10));
+    locationData.add(location.longitude.toStringAsPrecision(10));
     return locationData;
   }
 
