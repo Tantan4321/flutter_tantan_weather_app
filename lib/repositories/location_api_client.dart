@@ -14,7 +14,7 @@ class LocationApiClient {
 
   Future<List<String>> getLocationId() async {
     LocationData location;
-
+      await loc.requestService();
       bool serviceStatus = await loc.serviceEnabled();
       print("Service status: $serviceStatus");
       if (serviceStatus) {
