@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tantan_weather_app/repositories/location_api_client.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:bloc/bloc.dart';
@@ -33,6 +34,7 @@ void main() {
     weatherApiClient: WeatherApiClient(
       httpClient: http.Client(),
     ),
+    locationApiClient: LocationApiClient()
   );
   BlocSupervisor.delegate = SimpleBlocDelegate();
   runApp(
