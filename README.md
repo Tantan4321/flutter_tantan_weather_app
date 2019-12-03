@@ -1,5 +1,7 @@
 # flutter_tantan_weather_app
 
-A Flutter app for the weather.
+A simple, yet elegant Flutter app for the weather.
+
+- Note: you must have an Internet connection for the app to get weather data.
 
 
